@@ -1,0 +1,19 @@
+{
+  "name": "inventory-application",
+  "version": "1.0.0",
+  "description": "A simple inventory application",
+  "main": "app.js",
+  "scripts": {
+    "start": "node --watch app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv": "^16.4.7",
+    "ejs": "^3.1.10",
+    "express": "^4.21.2",
+    "pg": "^8.13.1"
+  }
+}
+
