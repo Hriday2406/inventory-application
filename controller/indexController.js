@@ -1,5 +1,10 @@
-const indexController = (req, res) => {
-  res.render("index");
-};
+const db = require("../db/queries");
+const asyncHandler = require("express-async-handler");
 
-module.exports = indexController;
+const indexController = asyncHandler(async (req, res) => {
+  const allItems = await db.getAllItems();
+  const allCategories = await db.getAllCategories();
+  res.render("index", { allItems, allCategories });
+});
+
+module.exports = { indexController };
