@@ -12,9 +12,26 @@
     />
     <link rel="stylesheet" href="/styles/style.css" />
   </head>
-  <body class="bg-bg">
-    <h1 class="text-accent font-script mt-8 text-center text-3xl font-bold">
-      Inventory Application
-    </h1>
+  <body class="bg-bg min-h-dvh flex flex-col text-white">
+    <%- include("partials/header"); %>
+    <main class="flex flex-col md:flex-row grow ">
+      <aside class="w-1/6 py-5 px-3 border-r-4 border-dashed border-secondary flex flex-col items-center">
+        
+      </aside>
+      <section class="grow">
+        <div class="flex flex-col gap-5 px-7 py-5">
+          <h1 class="font-script text-2xl font-bold text-white">Items</h1>
+          <% if(locals.allItems.length != 0) { %>
+            <%- include("partials/items", { allItems: locals.allItems } );  %>
+          <% } else { %>
+            <div class="text-center font-mono text-accent">
+              <h1 class="my-10 text-5xl md:text-7xl">Oops!</h1>
+              <p class="text-center">There are no items in your inventory,</p>
+              <p class="text-center">add more items to view them here.</p>
+            </div>
+          <% } %>
+        </div>
+      </section>
+    </main>
   </body>
 </html>
