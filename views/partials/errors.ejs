@@ -1,0 +1,7 @@
+<% if(locals.errors) { %>
+  <ul class="text-center border-2 text-white border-red-500 border-dashed rounded-xl w-fit mx-auto px-5 py-3 space-y-1 ">
+    <% errors.forEach((error) => { %>
+    <li><%= error.msg %></li>
+    <% }); %>
+  </ul>
+<% } %>
