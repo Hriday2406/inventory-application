@@ -30,7 +30,7 @@ const newItemController = [
 
 const newCategoryController = [
   [
-    body("name")
+    body("category_name")
       .trim()
       .isLength({ min: 1, max: 25 })
       .withMessage("Category name should be between 1 and 25 characters"),
@@ -38,13 +38,13 @@ const newCategoryController = [
   asyncHandler(async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty())
-      return res.status(400).render("newItem", { errors: errors.array() });
+      return res.status(400).render("newCategory", { errors: errors.array() });
 
-    let { name } = req.body;
-    name = name.trim();
-    if (!name || name.length === 0)
+    let { category_name } = req.body;
+    category_name = category_name.trim();
+    if (!category_name || category_name.length === 0)
       throw new Error("Category name cannot be empty");
-    let status = await db.addCategory(name);
+    let status = await db.addCategory(category_name);
     if (status) res.redirect("/");
     else throw new Error("Error adding category to Database");
   }),
@@ -55,4 +55,13 @@ const newItemHandler = asyncHandler(async (req, res) => {
   res.render("newItem", { allCategories });
 });
 
-module.exports = { newItemController, newCategoryController, newItemHandler };
+const newCategoryHandler = async (req, res) => {
+  res.render("newCategory");
+};
+
+module.exports = {
+  newItemController,
+  newCategoryController,
+  newItemHandler,
+  newCategoryHandler,
+};
