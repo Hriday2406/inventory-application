@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inventory Application</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles/style.css" />
+  </head>
+  <body class="bg-bg min-h-dvh flex flex-col text-white">
+    <%- include("partials/header"); %>
+    <main class="flex flex-col md:flex-row grow ">
+      <aside class="w-1/6 py-5 px-3 border-r-4 border-dashed border-secondary flex flex-col items-center">
+        <h1 class="font-script text-2xl font-bold text-white mb-5">Categories</h1>
+        <a href="/" class="font-mono">All Categories</a>
+        <div class="h-[2px] bg-accent w-full my-5"></div>
+        <a href="/new/category" class="mb-5 font-mono font-bold border-2 border-accent rounded-xl px-5 py-2 hover:scale-105 hover:shadow-md hover:shadow-accent">Create New Category</a>
+        <% if(locals.allCategories.length != 0) { %>
+          <%- include("partials/categories", { allCategories: locals.allCategories } );  %>
+        <% } %>
+      </aside>
+      <section class="grow">
+        <div class="flex flex-col gap-5 px-7 py-5">
+          <h1 class="font-script text-2xl font-bold text-white">Items</h1>
+          <% if(locals.allItemsOfCategory.length != 0) { %>
+            <%- include("partials/items", { allItems: locals.allItemsOfCategory } );  %>
+          <% } else { %>
+            <div class="text-center font-mono text-accent">
+              <h1 class="my-10 text-5xl md:text-7xl">Oops!</h1>
+              <p class="text-center">There are no items in your inventory,</p>
+              <p class="text-center">add more items to view them here.</p>
+            </div>
+          <% } %>
+          <a href="/new/item" class="font-mono text-3xl font-medium text-black text-center bg-accent rounded-full absolute size-10 bottom-10 right-10 hover:rotate-180 transition-all duration-300 hover:scale-125 hover:shadow-[0_0_10px_#fff] hover:shadow-accent">+</a>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

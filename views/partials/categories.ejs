@@ -1,5 +1,5 @@
 <ul class="flex flex-col items-center gap-5">
   <% allCategories.forEach((category) => { %>
-    <li><a href="/" class="font-mono"><%= category.category_name %></a></li>
+    <li><a href="/category/<%= category.id %>" class="font-mono <%= locals.path == category.id ? "text-accent font-bold " : "" %></a> "><%= category.category_name %></a></li>
   <% }) %>
 </ul>
