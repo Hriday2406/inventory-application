@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inventory Application</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles/style.css" />
+  </head>
+  <body class="flex min-h-dvh flex-col bg-bg text-white">
+    <%- include("partials/header"); %>
+    <main class="flex grow items-center justify-center">
+      <form
+        action="/item/edit/<%= locals.item.id %>"
+        method="POST"
+        class="flex w-4/5 select-none flex-col gap-5 rounded-3xl border-4 border-dashed border-secondary p-7 text-center sm:w-[400px] sm:p-7 lg:w-1/4"
+      >
+        <h1 class="text-center font-script text-3xl font-bold text-accent">
+          Update <%= locals.item.item_name %>
+        </h1>
+        <%- include("partials/errors.ejs") %>
+        <div class="flex flex-col gap-5 px-2">
+          <div class="flex flex-col gap-1">
+            <label for="item_name" class="text-left"
+              >Item Name <span class="text-red-500">*</span></label
+            >
+            <input
+              type="text"
+              name="item_name"
+              id="item_name"
+              placeholder="Item Name"
+              value="<%= locals.item.item_name %>"
+              class="rounded-md px-4 py-2 text-black outline-none transition-all duration-200 hover:scale-105 hover:shadow-md hover:shadow-accent"
+              required
+            />
+          </div>
+          <div class="flex flex-col gap-1">
+            <label for="category_id" class="text-left"
+              >Category <span class="text-red-500">*</span>
+            </label>
+            <select
+              name="category_id"
+              id="category_id"
+              value="<%= locals.item.category_id %>"
+              class="rounded-md px-4 py-2 text-black outline-none transition-all duration-200 hover:scale-105 hover:shadow-md hover:shadow-accent"
+              required
+            >
+              <option value="" disabled selected hidden>Select Category</option>
+              <% locals.allCategories.forEach((category) => { %>
+                <option value="<%= category.id %>" <%= (locals.item.category_id == category.id ? "selected" : "") %> >
+                  <%= category.category_name %>
+                </option>
+              <% }) %>
+            </select>
+          </div>
+        </div>
+        <button
+          type="submit"
+          class="rounded-xl border-2 border-accent border-dashed px-4 py-2 font-mono text-base font-bold transition-all duration-200 hover:scale-105 hover:shadow-md hover:shadow-accent mt-3"
+        >
+          Update Item
+        </button>
+      </form>
+    </main>
+  </body>
+</html>

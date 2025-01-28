@@ -23,6 +23,11 @@ async function addItem(name, category) {
   }
 }
 
+async function getItem(id) {
+  const { rows } = await pool.query("SELECT * FROM items WHERE id = $1", [id]);
+  return rows[0];
+}
+
 async function getAllItems() {
   const { rows } = await pool.query(`SELECT * FROM items;`);
   return rows;
@@ -88,6 +93,7 @@ async function deleteCategory(id) {
 
 module.exports = {
   addItem,
+  getItem,
   getAllItems,
   getAllItemsByCategory,
   updateItem,
