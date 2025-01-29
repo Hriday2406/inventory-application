@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Inventory Application</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400..700&family=Roboto+Mono:ital,wght@0,100..700;1,100..700&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="/styles/style.css" />
+  </head>
+  <body class="flex min-h-dvh flex-col bg-bg text-white">
+    <%- include("partials/header"); %>
+    <main class="flex grow items-center justify-center">
+      <form
+        action="/category/<%= locals.category.id %>/edit"
+        method="POST"
+        class="flex w-4/5 select-none flex-col gap-5 rounded-3xl border-4 border-dashed border-secondary p-7 text-center sm:w-[400px] sm:p-7 lg:w-1/4"
+      >
+        <h1 class="text-center font-script text-3xl font-bold text-accent">
+          Update <%= locals.category.category_name %>
+        </h1>
+        <%- include("partials/errors.ejs") %>
+        <div class="flex flex-col gap-5 px-2">
+          <div class="flex flex-col gap-1">
+            <label for="category_name" class="text-left"
+              >Category Name <span class="text-red-500">*</span></label
+            >
+            <input
+              type="text"
+              name="category_name"
+              id="category_name"
+              value="<%= locals.category.category_name %>"
+              placeholder="Category Name"
+              class="rounded-md px-4 py-2 text-black outline-none transition-all duration-200 hover:scale-105 hover:shadow-md hover:shadow-accent"
+              required
+            />
+          </div>
+        </div>
+        <a
+          href="/category/<%= locals.category.id %>/delete"
+          class="mt-3 rounded-xl border-2 border-dashed border-red-500 px-4 py-2 font-mono text-base font-bold transition-all duration-200 hover:scale-105 hover:shadow-md hover:shadow-red-500"
+        >
+          Delete Category
+        </a>
+        <button
+          type="submit"
+          class="rounded-xl border-2 border-dashed border-accent px-4 py-2 font-mono text-base font-bold transition-all duration-200 hover:scale-105 hover:shadow-md hover:shadow-accent"
+        >
+          Update Category
+        </button>
+      </form>
+    </main>
+  </body>
+</html>

@@ -23,6 +23,7 @@
         <% if(locals.allCategories.length != 0) { %>
           <%- include("partials/categories", { allCategories: locals.allCategories } );  %>
         <% } %>
+        <a href="/category/<%= locals.id %>/edit" class=" mt-auto font-mono font-bold border-2 border-accent rounded-xl px-5 py-2 hover:scale-105 hover:shadow-md hover:shadow-accent">Edit Category</a>
       </aside>
       <section class="grow">
         <div class="flex flex-col gap-5 px-7 py-5">
