@@ -11,11 +11,12 @@ const newItemController = [
   ],
   asyncHandler(async (req, res) => {
     const errors = validationResult(req);
-    const allCategories = await db.getAllCategories();
-    if (!errors.isEmpty())
+    if (!errors.isEmpty()) {
+      const allCategories = await db.getAllCategories();
       return res
         .status(400)
         .render("newItem", { errors: errors.array(), allCategories });
+    }
 
     let { item_name, category_id } = req.body;
     item_name = item_name.trim();
