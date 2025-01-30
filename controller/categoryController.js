@@ -25,8 +25,13 @@ const postCategoryEditHandler = [
   ],
   asyncHandler(async (req, res) => {
     const errors = validationResult(req);
-    if (!errors.isEmpty())
-      return res.status(400).render("editCategory", { errors: errors.array() });
+    if (!errors.isEmpty()) {
+      const { id } = req.params;
+      const category = await db.getCategory(id);
+      return res
+        .status(400)
+        .render("editCategory", { errors: errors.array(), category });
+    }
 
     const { id } = req.params;
     const { category_name } = req.body;

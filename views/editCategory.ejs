@@ -39,20 +39,56 @@
               required
             />
           </div>
+          <div class="flex flex-col gap-1">
+            <label for="password" class="text-left">
+              Password <span class="text-red-500">*</span>
+            </label>
+            <input
+              type="password"
+              name="password"
+              id="password"
+              placeholder="Password"
+              class="rounded-md px-4 py-2 text-black outline-none transition-all duration-200 hover:scale-105 hover:shadow-md hover:shadow-accent"
+            />
+          </div>
         </div>
         <a
           href="/category/<%= locals.category.id %>/delete"
-          class="mt-3 rounded-xl border-2 border-dashed border-red-500 px-4 py-2 font-mono text-base font-bold transition-all duration-200 hover:scale-105 hover:shadow-md hover:shadow-red-500"
+          class="mt-5 rounded-xl"
         >
-          Delete Category
+          <button
+            type="button"
+            id="deleteBtn"
+            class="w-full rounded-xl border-2 border-dashed border-red-500 px-4 py-2 font-mono text-base font-bold transition-all duration-200 hover:scale-105 hover:shadow-md hover:shadow-red-500 disabled:cursor-not-allowed disabled:opacity-50 disabled:grayscale"
+            disabled
+          >
+            Delete Category
+          </button>
         </a>
         <button
           type="submit"
-          class="rounded-xl border-2 border-dashed border-accent px-4 py-2 font-mono text-base font-bold transition-all duration-200 hover:scale-105 hover:shadow-md hover:shadow-accent"
+          id="editBtn"
+          class="rounded-xl border-2 border-dashed border-accent px-4 py-2 font-mono text-base font-bold transition-all duration-200 hover:scale-105 hover:shadow-md hover:shadow-accent disabled:cursor-not-allowed disabled:opacity-50 disabled:grayscale"
+          disabled
         >
           Update Category
         </button>
       </form>
     </main>
+    <script>
+      const deleteBtn = document.getElementById("deleteBtn");
+      const editBtn = document.getElementById("editBtn");
+      const password = document.getElementById("password");
+
+      password.addEventListener("input", () => {
+        if (password.value == "adminadmin") {
+          deleteBtn.disabled = false;
+          editBtn.disabled = false;
+        } else {
+          deleteBtn.disabled = true;
+          editBtn.disabled = true;
+        }
+      });
+    </script>
   </body>
 </html>
