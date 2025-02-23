@@ -14,8 +14,8 @@
   </head>
   <body class="bg-bg min-h-dvh flex flex-col text-white">
     <%- include("partials/header"); %>
-    <main class="flex flex-col sm:flex-row grow mt-20 sm:mt-0">
-      <aside class="sm:w-80 w-full p-5 border-b-4 sm:border-r-4 sm:border-b-0 border-dashed border-secondary flex flex-col items-center ">
+    <main class="flex flex-col grow mt-20 sm:flex-row sm:mt-0">
+      <aside class="flex flex-col shrink-0 items-center w-full p-5 border-b-4 border-dashed border-secondary sm:border-r-4 sm:border-b-0 sm:w-80 ">
         <h1 class="font-script text-2xl font-bold text-white mb-5 select-none">Categories</h1>
         <a href="/" class="text-accent font-bold font-mono">All Categories</a>
         <div class="h-[2px] bg-accent w-full my-5"></div>
@@ -24,7 +24,7 @@
           <%- include("partials/categories", { allCategories: locals.allCategories } );  %>
         <% } %>
       </aside>
-      <section class="grow">
+      <section>
         <div class="flex flex-col gap-5 px-7 py-5 h-full items-start relative">
           <h1 class="font-script text-2xl font-bold text-white select-none">Items</h1>
           <% if(locals.allItems.length != 0) { %>
