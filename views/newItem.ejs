@@ -56,6 +56,21 @@
               <% }) %>
             </select>
           </div>
+          <div class="flex flex-col gap-1">
+            <label for="count" class="text-left"
+              >Count <span class="text-red-500">*</span>
+            </label>
+            <input
+              type="number"
+              name="count"
+              id="count"
+              placeholder="1"
+              min="1"
+              value="1"
+              class="rounded-md px-4 py-2 text-black outline-none transition-all duration-200 hover:scale-105 hover:shadow-md hover:shadow-accent"
+              required
+            />
+          </div>
         </div>
         <button
           type="submit"

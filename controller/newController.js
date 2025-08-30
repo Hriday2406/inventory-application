@@ -8,6 +8,9 @@ const newItemController = [
       .trim()
       .isLength({ min: 1, max: 25 })
       .withMessage("Item name should be between 1 and 25 characters"),
+    body("count")
+      .isInt({ min: 1 })
+      .withMessage("Count must be a positive integer"),
   ],
   asyncHandler(async (req, res) => {
     const errors = validationResult(req);
@@ -18,12 +21,17 @@ const newItemController = [
         .render("newItem", { errors: errors.array(), allCategories });
     }
 
-    let { item_name, category_id } = req.body;
+    let { item_name, category_id, count } = req.body;
     item_name = item_name.trim();
     if (!item_name || item_name.length === 0)
       throw new Error("Item name cannot be empty");
     if (!category_id || category_id <= 0) throw new Error("Category not valid");
-    let status = await db.addItem(item_name, category_id);
+    
+    // Validate count
+    count = parseInt(count) || 1;
+    if (count <= 0) throw new Error("Count must be a positive number");
+    
+    let status = await db.addItem(item_name, category_id, count);
     if (status) res.redirect("/");
     else throw new Error("Error adding item to Database");
   }),
