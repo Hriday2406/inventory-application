@@ -15,8 +15,12 @@ const postItemEditHandler = [
       .trim()
       .isLength({ min: 1, max: 25 })
       .withMessage("Item name should be between 1 and 25 characters"),
+    body("count")
+      .isInt({ min: 1 })
+      .withMessage("Count must be a positive integer"),
   ],
   asyncHandler(async (req, res) => {
+    const { id } = req.params;
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
       const item = await db.getItem(id);
@@ -26,10 +30,9 @@ const postItemEditHandler = [
         .render("editItem", { errors: errors.array(), item, allCategories });
     }
 
-    const { id } = req.params;
-    const { item_name, category_id } = req.body;
+    const { item_name, category_id, count } = req.body;
 
-    let status = await db.updateItem(id, item_name, category_id);
+    let status = await db.updateItem(id, item_name, category_id, parseInt(count));
 
     if (status) res.redirect("/");
     else throw new Error("Error updating item in Database");

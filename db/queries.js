@@ -2,7 +2,7 @@ const pool = require("./pool");
 
 /* ***** Items ***** */
 
-async function addItem(name, category) {
+async function addItem(name, category, count = 1) {
   const { rows } = await pool.query(
     "SELECT * FROM items WHERE item_name = $1 AND category_id = $2",
     [name, category],
@@ -12,8 +12,8 @@ async function addItem(name, category) {
 
   try {
     await pool.query(
-      "INSERT INTO items (item_name, category_id) VALUES ($1, $2)",
-      [name, category],
+      "INSERT INTO items (item_name, category_id, count) VALUES ($1, $2, $3)",
+      [name, category, count],
     );
     return true;
   } catch (error) {
@@ -41,10 +41,10 @@ async function getAllItemsByCategory(category) {
   return rows;
 }
 
-async function updateItem(id, name, category) {
+async function updateItem(id, name, category, count) {
   await pool.query(
-    "UPDATE items SET item_name = $1, category_id = $2 WHERE id = $3",
-    [name, category, id],
+    "UPDATE items SET item_name = $1, category_id = $2, count = $3 WHERE id = $4",
+    [name, category, count, id],
   );
   return true;
 }
