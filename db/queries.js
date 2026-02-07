@@ -98,6 +98,35 @@ async function deleteCategory(id) {
   return true;
 }
 
+/* ***** Analytics ***** */
+
+async function addAnalytic(action, pageUrl, userAgent, ipAddress) {
+  try {
+    await pool.query(
+      "INSERT INTO analytics (action, page_url, user_agent, ip_address) VALUES ($1, $2, $3, $4)",
+      [action, pageUrl, userAgent, ipAddress],
+    );
+    return true;
+  } catch (error) {
+    throw new Error(`Error adding analytic: ${error.message}`);
+  }
+}
+
+async function getAllAnalytics() {
+  const { rows } = await pool.query(
+    `SELECT * FROM analytics ORDER BY timestamp DESC;`,
+  );
+  return rows;
+}
+
+async function getAnalyticsByAction(action) {
+  const { rows } = await pool.query(
+    `SELECT * FROM analytics WHERE action = $1 ORDER BY timestamp DESC;`,
+    [action],
+  );
+  return rows;
+}
+
 module.exports = {
   addItem,
   getItem,
@@ -110,4 +139,7 @@ module.exports = {
   getAllCategories,
   updateCategory,
   deleteCategory,
+  addAnalytic,
+  getAllAnalytics,
+  getAnalyticsByAction,
 };

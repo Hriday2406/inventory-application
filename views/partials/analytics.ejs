@@ -1,0 +1,26 @@
+<script>
+  // Function to track interactions
+  function trackInteraction(action, details = '') {
+    fetch('/analytics/track', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ action, details }),
+    }).catch(err => console.error('Error tracking interaction:', err));
+  }
+
+  // Track button clicks
+  document.addEventListener('click', function(e) {
+    if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON') {
+      const text = e.target.textContent.trim().substring(0, 50);
+      trackInteraction('button_click', text);
+    }
+  });
+
+  // Track form submissions
+  document.addEventListener('submit', function(e) {
+    const formAction = e.target.action || 'unknown';
+    trackInteraction('form_submit', formAction);
+  });
+</script>
