@@ -112,22 +112,6 @@ async function addAnalytic(action, pageUrl, userAgent, ipAddress) {
   }
 }
 
-async function getAllAnalytics(limit = 100) {
-  const { rows } = await pool.query(
-    `SELECT * FROM analytics ORDER BY timestamp DESC LIMIT $1;`,
-    [limit],
-  );
-  return rows;
-}
-
-async function getAnalyticsByAction(action, limit = 100) {
-  const { rows } = await pool.query(
-    `SELECT * FROM analytics WHERE action = $1 ORDER BY timestamp DESC LIMIT $2;`,
-    [action, limit],
-  );
-  return rows;
-}
-
 module.exports = {
   addItem,
   getItem,
@@ -141,6 +125,4 @@ module.exports = {
   updateCategory,
   deleteCategory,
   addAnalytic,
-  getAllAnalytics,
-  getAnalyticsByAction,
 };
