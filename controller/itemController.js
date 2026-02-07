@@ -6,7 +6,8 @@ const getItemEditHandler = asyncHandler(async (req, res) => {
   const { id } = req.params;
   const item = await db.getItem(id);
   const allCategories = await db.getAllCategories();
-  res.render("editItem", { item, allCategories });
+  const adminPassword = process.env.ADMIN_PASSWORD;
+  res.render("editItem", { item, allCategories, adminPassword });
 });
 
 const postItemEditHandler = [
@@ -25,9 +26,10 @@ const postItemEditHandler = [
     if (!errors.isEmpty()) {
       const item = await db.getItem(id);
       const allCategories = await db.getAllCategories();
+      const adminPassword = process.env.ADMIN_PASSWORD;
       return res
         .status(400)
-        .render("editItem", { errors: errors.array(), item, allCategories });
+        .render("editItem", { errors: errors.array(), item, allCategories, adminPassword });
     }
 
     const { item_name, category_id, count } = req.body;
