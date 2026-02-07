@@ -17,8 +17,8 @@ const analyticsController = asyncHandler(async (req, res) => {
 const trackInteractionHandler = asyncHandler(async (req, res) => {
   const { action, details } = req.body;
   
-  // Validate action - only allow specific action types
-  const allowedActions = ['button_click', 'form_submit', 'link_click', 'input_focus'];
+  // Validate action - only allow action types that are implemented in client-side tracking
+  const allowedActions = ['button_click', 'form_submit'];
   if (!action || !allowedActions.includes(action)) {
     return res.status(400).json({ 
       success: false, 

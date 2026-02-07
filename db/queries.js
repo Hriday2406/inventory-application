@@ -108,7 +108,7 @@ async function addAnalytic(action, pageUrl, userAgent, ipAddress) {
     );
     return true;
   } catch (error) {
-    throw new Error(`Error adding analytic: ${error.message}`);
+    throw new Error(`Failed to insert analytics record: ${error.message}`);
   }
 }
 

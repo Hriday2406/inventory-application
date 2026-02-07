@@ -12,8 +12,8 @@
 
   // Track button clicks
   document.addEventListener('click', function(e) {
-    const button = e.target.closest('BUTTON');
-    const link = e.target.closest('A');
+    const button = e.target.closest('button');
+    const link = e.target.closest('a');
     const element = button || link;
     
     if (element) {
