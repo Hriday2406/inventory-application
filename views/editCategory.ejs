@@ -81,7 +81,7 @@
       const password = document.getElementById("password");
 
       password.addEventListener("input", () => {
-        if (password.value == "adminadmin") {
+        if (password.value == "<%= locals.adminPassword %>") {
           deleteBtn.disabled = false;
           editBtn.disabled = false;
         } else {

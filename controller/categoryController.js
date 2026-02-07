@@ -13,7 +13,8 @@ const getCategoryHandler = asyncHandler(async (req, res) => {
 const getCategoryEditHandler = asyncHandler(async (req, res) => {
   const { id } = req.params;
   const category = await db.getCategory(id);
-  res.render("editCategory", { category });
+  const adminPassword = process.env.ADMIN_PASSWORD;
+  res.render("editCategory", { category, adminPassword });
 });
 
 const postCategoryEditHandler = [
@@ -28,9 +29,10 @@ const postCategoryEditHandler = [
     if (!errors.isEmpty()) {
       const { id } = req.params;
       const category = await db.getCategory(id);
+      const adminPassword = process.env.ADMIN_PASSWORD;
       return res
         .status(400)
-        .render("editCategory", { errors: errors.array(), category });
+        .render("editCategory", { errors: errors.array(), category, adminPassword });
     }
 
     const { id } = req.params;
