@@ -16,11 +16,26 @@ const analyticsController = asyncHandler(async (req, res) => {
 
 const trackInteractionHandler = asyncHandler(async (req, res) => {
   const { action, details } = req.body;
+  
+  // Validate action - only allow specific action types
+  const allowedActions = ['button_click', 'form_submit', 'link_click', 'input_focus'];
+  if (!action || !allowedActions.includes(action)) {
+    return res.status(400).json({ 
+      success: false, 
+      error: 'Invalid action type' 
+    });
+  }
+  
+  // Sanitize details - limit length and ensure it's a string
+  const sanitizedDetails = details 
+    ? String(details).substring(0, 200)
+    : '';
+  
   const pageUrl = req.get("referer") || req.originalUrl;
   const userAgent = req.get("user-agent") || "unknown";
-  const ipAddress = req.ip || req.connection.remoteAddress || "unknown";
+  const ipAddress = req.ip || req.socket?.remoteAddress || "unknown";
   
-  const actionWithDetails = details ? `${action}:${details}` : action;
+  const actionWithDetails = sanitizedDetails ? `${action}:${sanitizedDetails}` : action;
   
   await db.addAnalytic(actionWithDetails, pageUrl, userAgent, ipAddress);
   

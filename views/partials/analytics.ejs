@@ -12,8 +12,12 @@
 
   // Track button clicks
   document.addEventListener('click', function(e) {
-    if (e.target.tagName === 'A' || e.target.tagName === 'BUTTON') {
-      const text = e.target.textContent.trim().substring(0, 50);
+    const button = e.target.closest('BUTTON');
+    const link = e.target.closest('A');
+    const element = button || link;
+    
+    if (element) {
+      const text = element.textContent.trim().substring(0, 50);
       trackInteraction('button_click', text);
     }
   });

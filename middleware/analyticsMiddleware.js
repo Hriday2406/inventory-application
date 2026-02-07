@@ -18,7 +18,7 @@ const analyticsMiddleware = async (req, res, next) => {
     const pageUrl = req.originalUrl;
     const userAgent = req.get("user-agent") || "unknown";
     const ipAddress =
-      req.ip || req.connection.remoteAddress || "unknown";
+      req.ip || req.socket?.remoteAddress || "unknown";
 
     // Track page view asynchronously without blocking the request
     db.addAnalytic(action, pageUrl, userAgent, ipAddress).catch((err) => {
