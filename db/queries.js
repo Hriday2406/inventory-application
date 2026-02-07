@@ -98,6 +98,20 @@ async function deleteCategory(id) {
   return true;
 }
 
+/* ***** Analytics ***** */
+
+async function addAnalytic(action, pageUrl, userAgent, ipAddress) {
+  try {
+    await pool.query(
+      "INSERT INTO analytics (action, page_url, user_agent, ip_address) VALUES ($1, $2, $3, $4)",
+      [action, pageUrl, userAgent, ipAddress],
+    );
+    return true;
+  } catch (error) {
+    throw new Error(`Failed to insert analytics record: ${error.message}`);
+  }
+}
+
 module.exports = {
   addItem,
   getItem,
@@ -110,4 +124,5 @@ module.exports = {
   getAllCategories,
   updateCategory,
   deleteCategory,
+  addAnalytic,
 };

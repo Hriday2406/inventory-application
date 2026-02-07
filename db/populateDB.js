@@ -15,6 +15,15 @@ const SQL = `
     category_name VARCHAR ( 255 )
   );
 
+  CREATE TABLE IF NOT EXISTS analytics (
+    id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+    action VARCHAR ( 255 ),
+    page_url VARCHAR ( 500 ),
+    user_agent VARCHAR ( 500 ),
+    ip_address VARCHAR ( 45 ),
+    timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+  );
+
   INSERT INTO categories (category_name) VALUES ('Games'), ('Coding Languages'), ('Computer Parts');
 
   INSERT INTO items (item_name, category_id, count) VALUES ('Valorant', 1, 1), ('Marvel Rivals', 1, 1), ('CS:GO', 1, 1), ('God of War' , 1, 1), ('Minecraft', 1, 2), ('Grand Theft Auto V', 1, 1), ('C++', 2, 1), ('Python', 2, 1), ('React Js', 2, 1), ('Express Js', 2, 1), ('CPU', 3, 2), ('Graphics Card', 3, 1), ('Motherboard', 3, 3), ('RAM', 3, 4);
